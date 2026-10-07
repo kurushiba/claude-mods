@@ -1,0 +1,9 @@
+{
+  "name": "model-router",
+  "version": "0.1.0",
+  "description": "調査系のサブエージェントだけ Haiku で動かし、メインのモデルを固定する",
+  "author": {
+    "name": "kurushiba"
+  },
+  "types": "./types/index.d.ts"
+}

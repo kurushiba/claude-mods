@@ -1,0 +1,6 @@
+{
+  "name": "hook-skipped",
+  "version": "0.1.0",
+  "description": "8-3①：hook が例外を投げて飛ばされる",
+  "author": { "name": "kurushiba" }
+}

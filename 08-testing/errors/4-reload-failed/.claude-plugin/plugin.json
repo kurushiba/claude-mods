@@ -1,0 +1,6 @@
+{
+  "name": "reload-failed",
+  "version": "0.1.0",
+  "description": "8-3④：保存したコードが壊れていて読み直しに失敗する",
+  "author": { "name": "kurushiba" }
+}

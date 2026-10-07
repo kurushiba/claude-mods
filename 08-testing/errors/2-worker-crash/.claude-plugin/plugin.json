@@ -1,0 +1,6 @@
+{
+  "name": "worker-crash",
+  "version": "0.1.0",
+  "description": "8-3②：無限ループで hooks worker を止める",
+  "author": { "name": "kurushiba" }
+}

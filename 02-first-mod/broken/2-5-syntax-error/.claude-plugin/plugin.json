@@ -1,0 +1,6 @@
+{
+  "name": "first-mod",
+  "version": "0.1.0",
+  "description": "スピナーにツールの使用回数を出し、/tally で答える最初の Mod",
+  "author": { "name": "kurushiba" }
+}

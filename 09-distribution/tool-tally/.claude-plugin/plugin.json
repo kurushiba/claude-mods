@@ -1,0 +1,9 @@
+{
+  "name": "tool-tally",
+  "version": "1.0.0",
+  "description": "スピナーに道具の使用回数を出し、/tally で回数を答える Mod",
+  "author": { "name": "your-name" },
+  "repository": "https://github.com/your-name/tool-tally",
+  "license": "MIT",
+  "keywords": ["mod", "spinner"]
+}

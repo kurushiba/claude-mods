@@ -1,0 +1,6 @@
+{
+  "name": "ui-playground",
+  "version": "0.1.0",
+  "description": "わざと不正な描画をして refused を起こす",
+  "author": { "name": "kurushiba" }
+}

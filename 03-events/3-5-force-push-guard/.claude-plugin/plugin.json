@@ -1,0 +1,6 @@
+{
+  "name": "force-push-guard",
+  "version": "0.1.0",
+  "description": "git push --force を止めるガード",
+  "author": { "name": "kurushiba" }
+}

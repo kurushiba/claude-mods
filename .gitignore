@@ -1,0 +1,7 @@
+# Claude Code が Mod を読み込むたびに自動で作るファイル
+.claude-plugin/types/
+tsconfig.json
+
+.DS_Store
+node_modules/
+*.log

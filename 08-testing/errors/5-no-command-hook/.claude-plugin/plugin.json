@@ -1,0 +1,6 @@
+{
+  "name": "no-command-hook",
+  "version": "0.1.0",
+  "description": "8-3⑤：コマンドを登録したのに答える hook がない",
+  "author": { "name": "kurushiba" }
+}

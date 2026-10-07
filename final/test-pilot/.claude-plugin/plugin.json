@@ -1,0 +1,9 @@
+{
+  "name": "test-pilot",
+  "version": "0.1.0",
+  "description": "コードが変わっていなければ npm test を実行せずに前回の結果を返す",
+  "author": {
+    "name": "kurushiba"
+  },
+  "types": "./types/index.d.ts"
+}

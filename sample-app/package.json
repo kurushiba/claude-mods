@@ -1,0 +1,11 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Test Pilot（4〜5章）の題材。npm test でテストが走る小さなショッピングカート",
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-reporter=spec",
+    "test:watch": "node scripts/watch-tests.mjs"
+  }
+}

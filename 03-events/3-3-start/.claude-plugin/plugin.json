@@ -1,0 +1,6 @@
+{
+  "name": "pr-context",
+  "version": "0.1.0",
+  "description": "PR の話をしたら、今のブランチ名を Claude に伝える",
+  "author": { "name": "kurushiba" }
+}

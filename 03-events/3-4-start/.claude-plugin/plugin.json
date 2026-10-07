@@ -1,0 +1,6 @@
+{
+  "name": "turn-timer",
+  "version": "0.1.0",
+  "description": "ターンにかかった時間を回答の下に出す",
+  "author": { "name": "kurushiba" }
+}

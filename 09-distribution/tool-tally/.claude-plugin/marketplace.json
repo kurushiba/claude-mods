@@ -1,0 +1,14 @@
+{
+  "name": "your-name-mods",
+  "owner": {
+    "name": "your-name"
+  },
+  "description": "your-name が作った Claude Code の Mod",
+  "plugins": [
+    {
+      "name": "tool-tally",
+      "source": "./",
+      "description": "スピナーに道具の使用回数を出し、/tally で回数を答える Mod"
+    }
+  ]
+}
