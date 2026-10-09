@@ -1,6 +1,6 @@
 {
   "name": "tool-call-demo",
   "version": "0.1.0",
-  "description": "tool.call で見る・変える・答えるを書き分ける",
+  "description": "tool.call で next の使い方を試す",
   "author": { "name": "kurushiba" }
 }

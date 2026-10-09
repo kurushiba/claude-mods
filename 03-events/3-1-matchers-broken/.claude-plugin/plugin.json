@@ -1,6 +1,0 @@
-{
-  "name": "matchers-broken",
-  "version": "0.1.0",
-  "description": "同じイベントをマッチャーなしで2回登録する失敗例",
-  "author": { "name": "kurushiba" }
-}

@@ -1,0 +1,6 @@
+{
+  "name": "secret-guard",
+  "version": "0.1.0",
+  "description": "secret.txt の読み取りを止めるガード",
+  "author": { "name": "kurushiba" }
+}

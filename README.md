@@ -35,8 +35,8 @@ claude plugin test <Mod のフォルダ>       # Mod の中の tests/*.test.ts �
 |---|---|---|
 | `final/` | 0・10 | 講座で作る2つの Mod の完成版（`test-pilot/`・`model-router/`）。テスト付き |
 | `02-first-mod/broken/` | 2 | わざと壊した Mod（2-5 の文法エラー、2-7 の validate・tsc で落ちる例） |
-| `03-events/` | 3 | 各レクチャーの練習用 Mod の骨組み（`3-1-start`〜`3-4-start`）、マッチャーの失敗例（`3-1-matchers-broken`）、強制プッシュのガード（`3-5-force-push-guard/`。`BREAK` を `true` にしてエラーを起こし、`.catch` を書き足して直す） |
-| `04-test-pilot/4-5/` | 4 | fail-open を確かめるための Test Pilot（`BREAK` を `true` にしてエラーを起こす） |
+| `03-events/` | 3 | 各レクチャーの練習用 Mod の骨組み（`3-1-start`〜`3-4-start`）、秘密のファイルを読ませないガード（`3-5-secret-guard/`。`BREAK` を `true` にしてエラーを起こし、`.catch` を書き足して直す） |
+| `04-test-pilot/` | 4 | 各レクチャーの始まりの Test Pilot（`4-4-start`〜`4-6-start`。前のレクチャーの完成版）と、fail-open を確かめるための Test Pilot（`4-5/`。`BREAK` を `true` にしてエラーを起こす） |
 | `05-ui/broken/` | 5 | refused を起こす Mod（5-4） |
 | `08-testing/errors/` | 8 | エラーをわざと起こす Mod（8-3） |
 | `09-distribution/` | 9 | GitHub で Mod を配るときのひな形（`tool-tally/`） |
