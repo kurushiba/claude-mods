@@ -5,7 +5,7 @@ Test Pilot（セクション4〜5）の題材です。小さなショッピン�
 ```bash
 cd sample-app
 npm test              # テストを1回走らせる（42 passed）
-npm run test:watch    # src/ と test/ の変更を見張り、変わるたびにテストを走らせる（4-6 で使う）
+npm run test:watch    # src/ と test/ の変更を見張り、変わるたびにテストを走らせる（講座の本編では使いません）
 ```
 
 依存パッケージはありません（`npm install` は不要）。Node.js 標準の `node --test` で動きます。

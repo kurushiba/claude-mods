@@ -1,4 +1,4 @@
-// 4-5：返す結果の先頭に「(cached)」と出所を書く。
+// 4-6：返す結果の先頭に「(cached)」と出所を書く。
 // BREAK を true にすると、わざとエラーを起こして fail-open（普通に実行される）を確かめられる
 import type { EngineInterface, Register } from 'claude-code'
 

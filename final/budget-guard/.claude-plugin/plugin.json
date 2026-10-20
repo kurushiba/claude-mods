@@ -1,0 +1,9 @@
+{
+  "name": "budget-guard",
+  "version": "0.1.0",
+  "description": "予算の70%を超えたらサブエージェントを Haiku に、90%を超えたらメインを1段下のモデルに切り替える",
+  "author": {
+    "name": "kurushiba"
+  },
+  "types": "./types/index.d.ts"
+}

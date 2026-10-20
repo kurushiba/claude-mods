@@ -1,49 +1,39 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-const TEST_COMMAND = /^npm (?:test|t|run test)(?:\s|$)/
+const NPM_TEST = /^\s*npm\s+(test|t|run\s+test)\s*$/
 
-// 前回の { hash, output }
-type CacheEntry = { hash: string; output: string }
+export const register: Register = on => {
+  let last: { hash: string; result: unknown } | undefined
 
-let cache: CacheEntry | null = null
-
-// 作業中のファイルの状態から「指紋」を作る。内容が同じなら同じ値になる
-async function workingTreeHash($: EngineInterface): Promise<string> {
-  const head = await $.process.run(['git', 'rev-parse', 'HEAD'])
-  const diff = await $.process.run(['git', 'diff', 'HEAD', '--', '.'])
-  if (head.exitCode !== 0 || diff.exitCode !== 0) {
-    throw new Error('git で状態を調べられませんでした')
-  }
-
-  const bytes = new TextEncoder().encode(head.stdout + diff.stdout)
-  const digest = await crypto.subtle.digest('SHA-256', bytes)
-  return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('')
-}
-
-export const register: Register = (on) => {
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
-    if (!TEST_COMMAND.test(e.command.trim())) {
-      return next(e)
-    }
+    if (!NPM_TEST.test(e.command)) return next(e)
 
-    let hash: string
-    try {
-      hash = await workingTreeHash($)
-    } catch {
-      return next(e)
-    }
+    const hash = await stateHash($)
+    if (hash === undefined) return next(e)
 
-    // 変更がなければ、実行せずに前回の出力を返す
-    if (cache !== null && cache.hash === hash) {
-      return { result: { stdout: cache.output, stderr: '', interrupted: false } }
-    }
+    if (last?.hash === hash) return { result: last.result } as never
 
-    // 変更があれば普通に実行し、結果とハッシュを覚えておく
     const ran = await next(e)
-    if (ran.deny === undefined) {
-      cache = { hash, output: ran.text ?? '' }
-    }
-
+    if (ran.deny === undefined) last = { hash, result: ran.result }
     return ran
   })
+}
+
+async function git($: EngineInterface, argv: string[], stdin?: string): Promise<string> {
+  const r = await $.process.run(['git', ...argv], stdin === undefined ? undefined : { stdin })
+  if (r.exitCode !== 0) throw new Error(`git ${argv[0]} failed`)
+  return r.stdout
+}
+
+// One hash from HEAD plus every uncommitted change (tracked diff and untracked names).
+async function stateHash($: EngineInterface): Promise<string | undefined> {
+  try {
+    const head = await git($, ['rev-parse', 'HEAD'])
+    const diff = await git($, ['diff', 'HEAD'])
+    const untracked = await git($, ['ls-files', '--others', '--exclude-standard'])
+    const hash = await git($, ['hash-object', '--stdin'], `${head}\n${diff}\n${untracked}`)
+    return hash.trim() || undefined
+  } catch {
+    return undefined
+  }
 }

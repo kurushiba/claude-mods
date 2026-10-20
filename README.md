@@ -33,15 +33,16 @@ claude plugin test <Mod のフォルダ>       # Mod の中の tests/*.test.ts �
 
 | フォルダ | セクション | 中身 |
 |---|---|---|
-| `final/` | 0・10 | 講座で作る2つの Mod の完成版（`test-pilot/`・`model-router/`）。テスト付き |
+| `final/` | 0・10 | 講座で作る2つの Mod の完成版（`test-pilot/`・`budget-guard/`）。テスト付き |
 | `02-first-mod/broken/` | 2 | わざと壊した Mod（2-5 の文法エラー、2-7 の validate・tsc で落ちる例） |
 | `03-events/` | 3 | 各レクチャーの練習用 Mod の骨組み（`3-1-start`〜`3-4-start`）、秘密のファイルを読ませないガード（`3-5-secret-guard/`。`BREAK` を `true` にしてエラーを起こし、`.catch` を書き足して直す） |
-| `04-test-pilot/` | 4 | 各レクチャーの始まりの Test Pilot（`4-4-start`〜`4-6-start`。前のレクチャーの完成版）と、fail-open を確かめるための Test Pilot（`4-5/`。`BREAK` を `true` にしてエラーを起こす） |
-| `05-ui/broken/` | 5 | refused を起こす Mod（5-4） |
+| `04-test-pilot/` | 4 | 各レクチャーの始まりの Test Pilot（`4-4-start`・`4-6-start`。前のレクチャーの完成版。中身の `hooks/register.ts` を、自分で作った `test-pilot/hooks/register.ts` に貼って使う）と、fail-open を確かめるための Test Pilot（`4-6/`。`BREAK` を `true` にしてエラーを起こす） |
+| `05-ui/` | 5 | 5-1 の始まりの Test Pilot（`5-1-start`。4-6 の完成版。`test-pilot/hooks/register.ts` を上書きして使う）、refused を起こす Mod（`broken/`。追加候補13 用で、本編では使わない） |
 | `08-testing/errors/` | 8 | エラーをわざと起こす Mod（8-3） |
 | `09-distribution/` | 9 | GitHub で Mod を配るときのひな形（`tool-tally/`） |
 | `sample-app/` | 4・5 | Test Pilot の題材。`npm test` で42件のテストが走る |
-| `router-sample/` | 7 | Model Router の題材。JavaScript 7ファイル |
+| `test-pilot/` | 4・5 | リポジトリには入っていない。4-3 で、Claude が書いた Test Pilot を `dev-mods` からここにコピーし、4・5章で育てる |
+| `budget-sample/` | 6 | Budget Guard の題材。JavaScript 7ファイル |
 
 ## 注意
 

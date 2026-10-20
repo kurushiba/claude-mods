@@ -26,6 +26,13 @@ async function workingTreeHash($: EngineInterface): Promise<string> {
   return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('')
 }
 
+// node --test の出力から「42 passed」のような要約を作る
+function summarize(output: string): string {
+  const passed = Number(output.match(/ℹ pass (\d+)/)?.[1] ?? 0)
+  const failed = Number(output.match(/ℹ fail (\d+)/)?.[1] ?? 0)
+  return failed > 0 ? `${passed} passed, ${failed} failed` : `${passed} passed`
+}
+
 export const register: Register = (on) => {
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
     const command = e.command.trim()
@@ -42,7 +49,9 @@ export const register: Register = (on) => {
 
     const cached = cache[command]
     if (cached !== undefined && cached.hash === hash) {
-      return { result: { stdout: cached.output, stderr: '', interrupted: false } }
+      // 本当に実行した結果ではないことが、Claude にも人にもわかるように書く
+      const header = `(cached) ${summarize(cached.output)} — 前回のテストからコードが変わっていないため、実行せずに前回の結果を返しています`
+      return { result: { stdout: `${header}\n\n${cached.output}`, stderr: '', interrupted: false } }
     }
 
     const ran = await next(e)
