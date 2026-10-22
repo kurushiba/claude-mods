@@ -1,0 +1,6 @@
+{
+  "name": "step-logger",
+  "version": "0.1.0",
+  "description": "turn.step の中身をトランスクリプトに記録する",
+  "author": { "name": "kurushiba" }
+}

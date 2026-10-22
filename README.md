@@ -43,6 +43,7 @@ claude plugin test <Mod のフォルダ>       # Mod の中の tests/*.test.ts �
 | `sample-app/` | 4・5 | Test Pilot の題材。`npm test` で42件のテストが走る |
 | `test-pilot/` | 4・5 | リポジトリには入っていない。4-3 で、Claude が書いた Test Pilot を `dev-mods` からここにコピーし、4・5章で育てる |
 | `budget-sample/` | 6 | Budget Guard の題材。JavaScript 7ファイル |
+| `step-logger/` | 6 | リクエストごとに実際に答えたモデルを記録するログ用の Mod（6-4 で読み込み、6-5 で中身を読む） |
 
 ## 注意
 

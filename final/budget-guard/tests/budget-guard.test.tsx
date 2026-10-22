@@ -95,22 +95,6 @@ test('予算の70%を超えたら、サブエージェントを Haiku にする�
   expect(models).toEqual(['haiku', 'haiku', undefined])
 })
 
-test('システムプロンプトの末尾に、切り出しの指示を足す', async ($, on) => {
-  on('prompt.compose', () => ({ sections: [{ id: 'intro', text: 'You are Claude Code.', scope: 'shared' as const }] }))
-
-  const { sections } = await $.prompt.compose({
-    model: 'claude-opus-5-5',
-    promptModel: 'claude-opus-5-5',
-    surfaces: [],
-    tools: [],
-    outputStyle: null,
-    traits: [],
-  })
-
-  expect(sections.at(-1)?.id).toBe('budget-guard:delegation')
-  expect(sections.at(-1)?.scope).toBe('session')
-})
-
 test('/budget 0.50 で予算を $.store に保存する', async ($, on) => {
   const saved: Record<string, unknown> = {}
   on('store.get', () => ({ value: undefined }))

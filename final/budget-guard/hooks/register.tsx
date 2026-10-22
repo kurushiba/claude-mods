@@ -1,19 +1,9 @@
-// 6-9：Budget Guard の完成版。/budget で決めた予算に対して、
+// 6-12：Budget Guard の完成版。/budget で決めた予算に対して、
 // 70%を超えたらサブエージェントを Haiku に、90%を超えたらメインを1段下のモデルに切り替える。
 // 入力欄の上のバンドに「Opus ▓▓▓▓▓▓░░░░ $0.31 / $0.50」のように、今のモデル・予算バー・推定コストを出す
 import { atom, read, update } from 'claude-code'
-import type { EngineInterface, PromptComposeSection, Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
 import type { ModelName } from '../types'
-
-const DELEGATION: PromptComposeSection = {
-  id: 'budget-guard:delegation',
-  text: [
-    '# Delegation',
-    'Delegate research, code search, file exploration and summarizing to an Explore subagent with the Agent tool.',
-    'Do implementation and design decisions yourself.',
-  ].join('\n'),
-  scope: 'session',
-}
 
 // 予算のうち、どこまで使ったら切り替えるか
 const SUBAGENT_AT = 0.7
@@ -113,11 +103,6 @@ export const register: Register = (on) => {
     }
     await setBudget($, usd)
     return { text: `予算を $${usd.toFixed(2)} にしました` }
-  })
-
-  on('prompt.compose', async ($, e, next) => {
-    const composed = await next(e)
-    return { ...composed, sections: [...composed.sections, DELEGATION] }
   })
 
   on('agent.spawn', async ($, e, next) => {
