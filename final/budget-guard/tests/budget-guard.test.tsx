@@ -155,7 +155,7 @@ test('バンドにモデル・予算バー・コストを出す', async ($, on) 
     component: 'AbovePrompt',
     props: { hasSurvey: false, isWorking: false, maxRows: 10, bodyColumns: 80 },
   } as never)
-  expect(await ui.find({ type: 'Text', text: 'Opus' })).toBeDefined()
-  expect(await ui.find({ type: 'Text', text: '▓▓▓▓▓▓░░░░' })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: 'opus' })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: '######----' })).toBeDefined()
   expect(await ui.find({ type: 'Text', text: '$0.30 / $0.50' })).toBeDefined()
 })

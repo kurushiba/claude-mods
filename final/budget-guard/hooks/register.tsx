@@ -1,6 +1,6 @@
 // 6-12：Budget Guard の完成版。/budget で決めた予算に対して、
 // 70%を超えたらサブエージェントを Haiku に、90%を超えたらメインを1段下のモデルに切り替える。
-// 入力欄の上のバンドに「Opus ▓▓▓▓▓▓░░░░ $0.31 / $0.50」のように、今のモデル・予算バー・推定コストを出す
+// 入力欄の上のバンドに「opus ######---- $0.31 / $0.50」のように、今のモデル・予算バー・推定コストを出す
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 import type { ModelName } from '../types'
@@ -30,12 +30,6 @@ function findName(id: string): ModelName | undefined {
   return (Object.keys(MODELS) as ModelName[]).find(name => id.includes(name))
 }
 
-// モデル ID から表示用の名前を作る（claude-opus-5-5 → Opus）
-function modelName(id: string): string {
-  const found = findName(id)
-  return found === undefined ? id : found.charAt(0).toUpperCase() + found.slice(1)
-}
-
 // 予算のうち使った割合（予算がなければ 0）
 async function usedRate($: EngineInterface): Promise<number> {
   if (budget === undefined) {
@@ -45,27 +39,16 @@ async function usedRate($: EngineInterface): Promise<number> {
   return (now.cost?.usd ?? 0) / budget
 }
 
-// 10マスのバー（▓ が使った分）
+// 10マスのバー（# が使った分）
 function bar(rate: number): string {
   const filled = Math.min(10, Math.round(rate * 10))
-  return '▓'.repeat(filled) + '░'.repeat(10 - filled)
+  return '#'.repeat(filled) + '-'.repeat(10 - filled)
 }
 
 function barColor(rate: number): string {
   if (rate >= MAIN_AT) return 'red'
   if (rate >= SUBAGENT_AT) return 'yellow'
   return 'green'
-}
-
-async function setBudget($: EngineInterface, usd: number | undefined) {
-  budget = usd
-  if (usd === undefined) {
-    await $.store.delete('budget')
-  } else {
-    await $.store.set('budget', usd)
-  }
-  // budget は $.state ではないので、描き直しを頼む
-  $.ui.invalidate('ui.render')
 }
 
 // セッションの使用状況を読んで $.state に入れる（バンドは自動で描き直される）
@@ -93,7 +76,10 @@ export const register: Register = (on) => {
       return { text: budget === undefined ? '予算は決めていません' : `予算は $${budget.toFixed(2)} です` }
     }
     if (arg === 'off') {
-      await setBudget($, undefined)
+      budget = undefined
+      await $.store.delete('budget')
+      // budget は $.state ではないので、描き直しを頼む
+      $.ui.invalidate('ui.render')
       return { text: '予算を外しました' }
     }
 
@@ -101,7 +87,9 @@ export const register: Register = (on) => {
     if (!Number.isFinite(usd) || usd <= 0) {
       return { text: '使い方：/budget 0.50 | off' }
     }
-    await setBudget($, usd)
+    budget = usd
+    await $.store.set('budget', usd)
+    $.ui.invalidate('ui.render')
     return { text: `予算を $${usd.toFixed(2)} にしました` }
   })
 
@@ -150,12 +138,12 @@ export const register: Register = (on) => {
       <Box flexDirection="column">
         {others}
         <Box flexDirection="row" gap={1}>
-          <Text bold>{modelName(now.model)}</Text>
+          <Text bold>{findName(now.model) ?? now.model}</Text>
           {budget !== undefined && <Text color={barColor(rate)}>{bar(rate)}</Text>}
           <Text dimColor>
             {budget === undefined ? `$${now.usd.toFixed(2)}` : `$${now.usd.toFixed(2)} / $${budget.toFixed(2)}`}
           </Text>
-          {to !== null && <Text dimColor>（{modelName(MODELS[to])} に切り替え済み）</Text>}
+          {to !== null && <Text dimColor>（{to} に切り替え済み）</Text>}
         </Box>
       </Box>
     )
