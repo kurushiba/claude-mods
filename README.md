@@ -13,10 +13,6 @@ Mod はインストールせず、`--plugin-dir` でフォルダを指定して�
 ```bash
 # 例：2章で自分で作った Mod を読み込む
 claude --plugin-dir ./first-mod
-
-# 例：Test Pilot の完成版を、題材の sample-app で動かす
-cd sample-app
-claude --plugin-dir ../final/test-pilot
 ```
 
 確かめるためのコマンド：
@@ -33,7 +29,6 @@ claude plugin test <Mod のフォルダ>       # Mod の中の tests/*.test.ts �
 
 | フォルダ | セクション | 中身 |
 |---|---|---|
-| `final/` | 0・6 | 講座で作る2つの Mod の完成版（`test-pilot/`・`budget-guard/`）。0-1 のデモで動かす。`tests/` も入っているが、テストの書き方は本編では扱わない |
 | `02-first-mod/broken/` | 2 | わざと壊した Mod（2-5 の文法エラー、2-7 の validate・tsc で落ちる例） |
 | `03-events/` | 3 | 各レクチャーの練習用 Mod の骨組み（`3-1-start`〜`3-4-start`）、秘密のファイルを読ませないガード（`3-5-secret-guard/`。`BREAK` を `true` にしてエラーを起こし、`.catch` を書き足して直す） |
 | `04-test-pilot/` | 4 | 各レクチャーの始まりの Test Pilot（`4-4-start`・`4-6-start`。前のレクチャーの完成版。中身の `hooks/register.ts` を、自分で作った `test-pilot/hooks/register.ts` に貼って使う）と、fail-open を確かめるための Test Pilot（`4-6/`。`BREAK` を `true` にしてエラーを起こす） |
